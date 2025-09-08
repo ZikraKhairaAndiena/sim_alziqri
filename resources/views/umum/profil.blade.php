@@ -1,7 +1,7 @@
 @extends('umum.layouts.main')
 @section('content')
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('img/4.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -31,7 +31,7 @@
 
                     {{-- Misi --}}
                     <h2 class="mt-5 mb-3">Misi</h2>
-                    
+
                         <li>Menanamkan nilai-nilai keimanan dan ketakwaan kepada Allah SWT sejak usia dini.</li>
                         <li>Menyelenggarakan pembelajaran yang aktif, kreatif, inovatif, efektif, dan menyenangkan.</li>
                         <li>Mengembangkan potensi anak sesuai minat dan bakatnya.</li>

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guru;
 use App\Models\Ppdb;
 use App\Models\Siswa;
 use App\Models\Thn_ajaran;
 use App\Models\ThnAjaran;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,15 +59,15 @@ class PpdbController extends Controller
             'jmlh_saudara_kandung' => 'required|integer',
             'alamat' => 'required',
             'tmp_tinggal' => 'required|in:orang_tua,wali,nenek,saudara',
-            'no_nik' => 'required|digits:16',
+            'no_nik' => 'required|digits:16|unique:siswas,no_nik',
             'no_kk' => 'required|digits:16',
-            'no_akte' => 'required|string|max:25',
+            'no_akte' => 'required|string|max:25|unique:siswas,no_akte',
             'nama_wali' => 'required|string|max:100',
             'no_telp' => 'required|string|max:15',
             //'status' => 'required|in:aktif,tidak_aktif',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'foto_kk' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'foto_akte' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto_kk' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto_akte' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
 
         ]);
 
@@ -111,36 +113,17 @@ class PpdbController extends Controller
         return redirect()->route('orang_tua.ppdb.index')->with('success', 'Pendaftaran berhasil.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Ppdb $ppdb)
+    public function cetak($id)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Ppdb $ppdb)
-    {
-        //
-    }
+        $kepsek = Guru::where('jabatan', 'kepala_sekolah')->first();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Ppdb $ppdb)
-    {
-        //
-    }
+        $ppdb = Ppdb::with(['siswa', 'thn_ajaran'])->findOrFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Ppdb $ppdb)
-    {
-        //
+        $pdf = Pdf::loadView('admin.ppdb.cetak', compact('ppdb', 'kepsek'))
+            ->setPaper('A4', 'portrait');
+
+        return $pdf->stream('Bukti_Pendaftaran_'.$ppdb->siswa->nama_siswa.'.pdf');
     }
 
 }

@@ -28,7 +28,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $thn_ajaran->nama }}</td>
-                                    <td>{{ ucfirst($thn_ajaran->status) }}</td>
+                                    <td>{{ ucwords(str_replace('_', ' ', $thn_ajaran->status)) }}</td>
                                     <td class="text-nowrap text-center">
                                         <div class="btn-group" role="group">
                                             {{-- <a href="{{ route('admin.thn_ajaran.show', $thn_ajaran->id) }}" class="btn btn-info btn-sm me-1" title="Lihat Detail">
@@ -50,6 +50,33 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <!-- Bagian Pagination untuk navigasi halaman Tahun Ajaran -->
+                        <div class="d-flex justify-content-center mt-4">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <!-- Tombol Previous -->
+                                    <li class="page-item {{ $thn_ajarans->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $thn_ajarans->previousPageUrl() }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Loop untuk nomor halaman -->
+                                    @for ($i = 1; $i <= $thn_ajarans->lastPage(); $i++)
+                                        <li class="page-item {{ ($thn_ajarans->currentPage() == $i) ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $thn_ajarans->url($i) }}">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+
+                                    <!-- Tombol Next -->
+                                    <li class="page-item {{ $thn_ajarans->hasMorePages() ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $thn_ajarans->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>

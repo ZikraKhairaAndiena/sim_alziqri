@@ -101,18 +101,20 @@
         <td style="text-align: center;">
             Mengetahui<br>
             Kepala TK
-            <br>
-            <img src="{{ public_path('img/ttd_kepsek.png') }}" style="width: 100px; height: auto; margin: 10px 0;">
-            <br>
-            <strong>{{ $kepsek->nama_guru ?? '-' }}</strong>
+            <br><br>
+            {{-- <img src="{{ public_path('img/ttd_kepsek.png') }}" style="width: 100px; height: auto; margin: 10px 0;"> --}}
+            <br><br>
+            <strong>{{ $kepsek->nama_guru ?? '-' }}</strong><br>
+            NIP. {{ $kepsek->nip ?? '-' }}
         </td>
         <td style="text-align: center;">
             Padang, {{ now()->format('d F Y') }}<br>
             Guru Kelompok
-            <br>
-            <img src="{{ public_path('img/ttd_guru.png') }}" style="width: 100px; height: auto; margin: 10px 0;">
-            <br>
-            <strong>{{ $guruKelas->nama_guru ?? '-' }}</strong>
+            <br><br>
+            {{-- <img src="{{ public_path('img/ttd_guru.png') }}" style="width: 100px; height: auto; margin: 10px 0;"> --}}
+            <br><br>
+            <strong>{{ $guruKelas->nama_guru ?? '-' }}</strong><br>
+            NIP. {{ $guruKelas->nip ?? '-' }}
         </td>
     </tr>
 </table>

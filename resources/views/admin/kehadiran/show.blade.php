@@ -5,7 +5,6 @@
     <div class="card">
         <div class="card-header">
             <h4 class="fw-bold text-dark mb-0">Kehadiran Siswa - {{ $kehadiran->kelas->nama_kelas }}</h4>
-            <a href="{{ route('admin.kehadiran.index') }}" class="btn btn-secondary">Kembali</a>
         </div>
         <div class="col-12 grid-margin">
             <div class="card">
@@ -34,6 +33,11 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{{ route('admin.kehadiran.index') }}" class="btn btn-secondary">
+                                <i class="bx bx-arrow-back me-1"></i> Kembali
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

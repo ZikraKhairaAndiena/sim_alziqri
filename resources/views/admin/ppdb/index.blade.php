@@ -5,6 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8 grid-margin stretch-card">
             <div class="card">
+                @if(session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
                 <div class="card-header text-center">
                     <h4 class="card-title text-center fw-bold mb-4">Status Pendaftaran PPDB</h4>
                 </div>

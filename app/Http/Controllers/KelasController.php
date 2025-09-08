@@ -15,7 +15,7 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelass = Kelas::with(['guru', 'tahunAjaran'])->latest()->paginate(7);
+        $kelass = Kelas::with(['guru', 'tahunAjaran'])->latest()->paginate(10);
         return view('admin.kelas.index', ['kelass' => $kelass]);
     }
 
@@ -61,7 +61,7 @@ class KelasController extends Controller
      */
     public function show($id)
     {
-        $kelas = Kelas::with(['guru', 'tahunAjaran'])->findOrFail($id);
+        $kelas = Kelas::with(['guru', 'tahunAjaran', 'siswas.ppdb'])->findOrFail($id);
         return view('admin.kelas.show', compact('kelas'));
     }
 
@@ -72,7 +72,7 @@ class KelasController extends Controller
     {
         $kelas = Kelas::findOrFail($id);
         $gurus = Guru::all();
-        $thnAjarans = ThnAjaran::all();
+        $thnAjarans = ThnAjaran::where('status', 'aktif')->first();
         return view('admin.kelas.edit', compact('kelas', 'gurus', 'thnAjarans'));
     }
 

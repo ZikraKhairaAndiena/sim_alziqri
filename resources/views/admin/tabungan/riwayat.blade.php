@@ -12,7 +12,7 @@
         <!-- Body -->
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered align-middle text-center mb-0">
+                <table class="table">
                     <thead class="table-light">
                         <tr>
                             <th>No</th>
@@ -40,14 +40,20 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-end gap-2">
+                    <a href="{{ route('admin.tabungan.index') }}" class="btn btn-secondary mt-3">
+                        <i class="bx bx-arrow-back me-1"></i> Kembali
+                    </a>
+                    <a href="{{ route('admin.tabungan.cetak', $siswa->id) }}" class="btn btn-sm btn-danger ms-1" target="_blank" title="Cetak PDF"><i class="mdi mdi-file-pdf-box"></i></a>
+                </div>
             </div>
 
-            <div class="mt-3">
+            {{-- <div class="mt-3">
                 <a href="{{ route('admin.tabungan.index') }}" class="btn btn-secondary">
                     <i class="bx bx-arrow-back me-1"></i> Kembali
                 </a>
                 <a href="{{ route('admin.tabungan.cetak', $siswa->id) }}" class="btn btn-sm btn-danger ms-1" target="_blank" title="Cetak PDF"><i class="mdi mdi-file-pdf-box"></i></a>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

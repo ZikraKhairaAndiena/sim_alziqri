@@ -19,7 +19,7 @@
 
             <!-- Nama -->
             <div class="mb-3">
-                <label for="nama" class="form-label fw-semibold">Nama Tahun Ajaran<span class="text-danger">*</label>
+                <label for="nama" class="form-label">Nama Tahun Ajaran<span class="text-danger">*</label>
                 <input type="text" class="form-control @error('nama') is-invalid @enderror"
                        id="nama" name="nama" value="{{ old('nama', $thn_ajaran->nama) }}" placeholder="Contoh: 2025/2026" maxlength="15" required>
                 @error('nama')
@@ -29,7 +29,7 @@
 
             <!-- Status -->
             <div class="mb-3">
-                <label for="status" class="form-label fw-semibold">Status<span class="text-danger">*</label>
+                <label for="status" class="form-label">Status<span class="text-danger">*</label>
                 <select name="status" id="status" class="form-select @error('status') is-invalid @enderror" required>
                     <option value="">-- Pilih Status --</option>
                     <option value="aktif" {{ old('status', $thn_ajaran->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>

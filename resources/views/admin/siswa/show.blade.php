@@ -93,6 +93,10 @@
                                     <td>{{ $siswa->no_kk }}</td>
                                 </tr>
                                 <tr>
+                                    <th>No Akte Kelahiran</th>
+                                    <td>{{ $siswa->no_akte }}</td>
+                                </tr>
+                                <tr>
                                     <th>Gambar KK</th>
                                     <td>
                                         @if($siswa->foto_kk)

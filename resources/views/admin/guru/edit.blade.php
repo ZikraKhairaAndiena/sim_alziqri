@@ -41,6 +41,17 @@
             </div>
 
             <div class="mb-3">
+                <label class="form-label">Jabatan<span class="text-danger">*</span></label>
+                <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" required>
+                    <option value="kepala_sekolah" {{ old('jabatan', $guru->jabatan) == 'kepala_sekolah' ? 'selected' : '' }}>Kepala Sekolah</option>
+                    <option value="guru_kelas" {{ old('jabatan', $guru->jabatan) == 'guru_kelas' ? 'selected' : '' }}>Guru Kelas</option>
+                </select>
+                @error('jabatan')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
                 <label class="form-label">Jenis Kelamin<span class="text-danger">*</span></label>
                 <select name="jenis_kelamin" class="form-select @error('jenis_kelamin') is-invalid @enderror" required>
                     <option value="L" {{ old('jenis_kelamin', $guru->jenis_kelamin) == 'L' ? 'selected' : '' }}>Laki-laki</option>
@@ -106,6 +117,7 @@
                         <img src="{{ asset('img/' . $guru->foto) }}" alt="Foto guru" width="100" class="mb-2"><br>
                     @endif
                     <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror">
+                    <small class="form-text text-muted">Format file: jpeg, png, jpg, gif. Maksimal ukuran 2 MB.</small>
                     @error('foto')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

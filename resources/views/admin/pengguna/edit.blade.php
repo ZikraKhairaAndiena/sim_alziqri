@@ -19,7 +19,7 @@
 
             <!-- Nama -->
             <div class="mb-3">
-                <label for="nama" class="form-label fw-semibold">Nama</label>
+                <label for="nama" class="form-label fw-semibold">Nama<span class="text-danger">*</span></label>
                 <input type="text" class="form-control @error('nama') is-invalid @enderror"
                        id="nama" name="nama" value="{{ old('nama', $user->nama) }}" placeholder="Masukkan Nama Pengguna" required>
                 @error('nama')
@@ -29,7 +29,7 @@
 
             <!-- Email -->
             <div class="mb-3">
-                <label for="email" class="form-label fw-semibold">Email</label>
+                <label for="email" class="form-label fw-semibold">Email<span class="text-danger">*</span></label>
                 <input type="email" class="form-control @error('email') is-invalid @enderror"
                        id="email" name="email" value="{{ old('email', $user->email) }}" placeholder="Masukkan Email" required>
                 @error('email')

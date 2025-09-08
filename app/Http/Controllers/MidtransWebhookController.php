@@ -80,11 +80,10 @@ class MidtransWebhookController extends Controller
                 $pdf->save($pdfPath);
 
                 // Buat pesan
-                $pesan = "Pembayaran sekolah atas nama *{$siswa->nama_siswa}* sebesar *Rp "
+                $pesan = "Terima kasih telah melakukan pembayaran uang sekolah atas nama *{$siswa->nama_siswa}* sebesar *Rp "
                     . number_format($pembayaran->nominal_bayar, 0, ',', '.')
                     . "* telah kami terima.\n\n"
-                    . "Berikut adalah tautan untuk mengunduh invoice:\n"
-                    . url("storage/invoice-{$pembayaran->id}.pdf");
+                    . "TTD: Manajemen TK Al-Ziqri";
 
                 // Kirim pesan via WA (pakai FonnteHelper)
                 $result = FonnteHelper::kirimPesan($nomor, $pesan);

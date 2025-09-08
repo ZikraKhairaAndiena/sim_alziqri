@@ -32,10 +32,11 @@
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="password">
+                <small class="form-text text-muted">Password minimal 5 karakter</small>
                 @error('password') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
             <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100">Register</button></div>
-            <div class="form-text text-center mb-5 text-dark"><a href="{{ route('login') }}" class="text-dark fw-bold">Already have an Account </a>
+            <div class="form-text text-center mb-5 text-dark"><a href="{{ route('login') }}" class="text-dark fw-bold">Sudah punya akun? Klik di sini untuk masuk</a>
             </div>
           </form>
         </div>

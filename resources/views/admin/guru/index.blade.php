@@ -35,7 +35,7 @@
                                     </td>
                                     <td>{{ $guru->nama_guru }}</td>
                                     <td>{{ $guru->nip }}</td>
-                                    <td>{{ $guru->jabatan }}</td>
+                                    <td>{{ ucwords(str_replace('_', ' ', $guru->jabatan)) }}</td>
                                     <td class="text-nowrap text-center">
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('admin.guru.show', $guru->id) }}" class="btn btn-info btn-sm me-1" title="Lihat Detail">
@@ -55,6 +55,33 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <!-- Bagian Pagination untuk navigasi halaman guru -->
+                        <div class="d-flex justify-content-center mt-4">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <!-- Tombol Previous -->
+                                    <li class="page-item {{ $gurus->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $gurus->previousPageUrl() }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Loop untuk nomor halaman -->
+                                    @for ($i = 1; $i <= $gurus->lastPage(); $i++)
+                                        <li class="page-item {{ ($gurus->currentPage() == $i) ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $gurus->url($i) }}">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+
+                                    <!-- Tombol Next -->
+                                    <li class="page-item {{ $gurus->hasMorePages() ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $gurus->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>

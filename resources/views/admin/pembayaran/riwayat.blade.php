@@ -29,7 +29,7 @@
 
             {{-- Tabel Riwayat Pembayaran --}}
             <div class="table-responsive mt-4">
-                <table class="table table-bordered">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>No</th>

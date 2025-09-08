@@ -15,7 +15,7 @@ class ThnAjaranController extends Controller
      */
     public function index()
     {
-        $thn_ajarans = ThnAjaran::latest()->paginate(7);
+        $thn_ajarans = ThnAjaran::latest()->paginate(10);
         return view('admin.thn_ajaran.index', ['thn_ajarans' => $thn_ajarans]);
     }
 

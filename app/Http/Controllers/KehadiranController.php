@@ -29,7 +29,7 @@ class KehadiranController extends Controller
 
             $kehadirans = Kehadiran::where('siswa_id', $siswa->id)
                 ->orderByDesc('tanggal')
-                ->get();
+                ->paginate(10);
 
             // view ortu tidak butuh $kelas
             return view('admin.kehadiran.ortu', compact('kehadirans', 'siswa'));
@@ -45,7 +45,7 @@ class KehadiranController extends Controller
         ->groupBy('kelas_id', 'tanggal')
         ->orderBy('tanggal', 'desc')
         ->orderBy('id', 'desc')
-        ->get();
+        ->paginate(10);
 
         return view('admin.kehadiran.index', compact('kehadirans', 'kelas'));
     }

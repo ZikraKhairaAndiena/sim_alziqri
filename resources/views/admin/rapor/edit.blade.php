@@ -29,7 +29,7 @@
 
                 {{-- Pilih Siswa --}}
                 <div class="mb-3">
-                    <label for="siswa_id" class="form-label">Siswa</label>
+                    <label for="siswa_id" class="form-label fw-semibold">Siswa<span class="text-danger">*</span></label>
                     <select name="siswa_id" id="siswa_id" class="form-control" required>
                         <option value="">-- Pilih Siswa --</option>
                         @foreach($siswas as $siswa)
@@ -42,20 +42,14 @@
 
                 {{-- Pilih Tahun Ajaran --}}
                 <div class="mb-3">
-                    <label for="thn_ajaran_id" class="form-label">Tahun Ajaran</label>
-                    <select name="thn_ajaran_id" id="thn_ajaran_id" class="form-control" required>
-                        <option value="">-- Pilih Tahun Ajaran --</option>
-                        @foreach($thnAjarans as $thn)
-                            <option value="{{ $thn->id }}" {{ $rapor->thn_ajaran_id == $thn->id ? 'selected' : '' }}>
-                                {{ $thn->nama }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <label for="thn_ajaran_id" class="form-label fw-semibold">Tahun Ajaran</label>
+                    <input type="hidden" name="thn_ajaran_id" value="{{ $thnAjarans->id }}">
+                    <input type="text" class="form-control" value="{{ $thnAjarans->nama }}" disabled>
                 </div>
 
                 {{-- Semester --}}
                 <div class="mb-3">
-                    <label for="semester" class="form-label">Semester</label>
+                    <label for="semester" class="form-label fw-semibold">Semester<span class="text-danger">*</span></label>
                     <select name="semester" id="semester" class="form-control" required>
                         <option value="">-- Pilih Semester --</option>
                         <option value="1" {{ $rapor->semester == 1 ? 'selected' : '' }}>1</option>
@@ -68,11 +62,11 @@
 
                 {{-- Agama --}}
                 <div class="mb-3">
-                    <label for="agama" class="form-label">Agama</label>
+                    <label for="agama" class="form-label fw-semibold">Agama<span class="text-danger">*</span></label>
                     <textarea name="agama" id="agama" class="form-control" rows="6">{{ old('agama', $rapor->agama) }}</textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="foto_agama" class="form-label">Foto Agama</label><br>
+                    <label for="foto_agama" class="form-label fw-semibold">Foto Agama</label><br>
                     @if($rapor->foto_agama)
                         <img src="{{ asset('img/' . $rapor->foto_agama) }}" alt="Foto Agama" width="80" class="mb-2">
                     @endif
@@ -81,11 +75,11 @@
 
                 {{-- Jati Diri --}}
                 <div class="mb-3">
-                    <label for="jati_diri" class="form-label">Jati Diri</label>
+                    <label for="jati_diri" class="form-label fw-semibold">Jati Diri<span class="text-danger">*</span></label>
                     <textarea name="jati_diri" id="jati_diri" class="form-control" rows="6">{{ old('jati_diri', $rapor->jati_diri) }}</textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="foto_jati_diri" class="form-label">Foto Jati Diri</label><br>
+                    <label for="foto_jati_diri" class="form-label fw-semibold">Foto Kegiatan Jati Diri Siswa<span class="text-danger">*</span></label><br>
                     @if($rapor->foto_jati_diri)
                         <img src="{{ asset('img/' . $rapor->foto_jati_diri) }}" alt="Foto Jati Diri" width="80" class="mb-2">
                     @endif
@@ -94,11 +88,11 @@
 
                 {{-- Literasi --}}
                 <div class="mb-3">
-                    <label for="literasi" class="form-label">Literasi</label>
+                    <label for="literasi" class="form-label fw-semibold">Literasi<span class="text-danger">*</span></label>
                     <textarea name="literasi" id="literasi" class="form-control" rows="6">{{ old('literasi', $rapor->literasi) }}</textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="foto_literasi" class="form-label">Foto Literasi</label><br>
+                    <label for="foto_literasi" class="form-label fw-semibold">Foto Kegiatan Literasi Siswa<span class="text-danger">*</span></label><br>
                     @if($rapor->foto_literasi)
                         <img src="{{ asset('img/' . $rapor->foto_literasi) }}" alt="Foto Literasi" width="80" class="mb-2">
                     @endif
@@ -107,11 +101,11 @@
 
                 {{-- STEAM --}}
                 <div class="mb-3">
-                    <label for="steam" class="form-label">STEAM</label>
+                    <label for="steam" class="form-label fw-semibold">STEAM<span class="text-danger">*</span></label>
                     <textarea name="steam" id="steam" class="form-control" rows="6">{{ old('steam', $rapor->steam) }}</textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="foto_steam" class="form-label">Foto STEAM</label><br>
+                    <label for="foto_steam" class="form-label fw-semibold">Foto Kegiatan STEAM Siswa<span class="text-danger">*</span></label><br>
                     @if($rapor->foto_steam)
                         <img src="{{ asset('img/' . $rapor->foto_steam) }}" alt="Foto STEAM" width="80" class="mb-2">
                     @endif

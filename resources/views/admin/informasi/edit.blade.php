@@ -34,6 +34,18 @@
             </div>
 
             <div class="mb-3">
+                <label class="form-label">Jenis Informasi<span class="text-danger">*</span></label>
+                <select name="type" class="form-select @error('type') is-invalid @enderror" required>
+                    <option value="pengumuman" {{ old('type', $informasi->type) == 'pengumuman' ? 'selected' : '' }}>Pengumuman</option>
+                    <option value="info" {{ old('type', $informasi->type) == 'info' ? 'selected' : '' }}>Info</option>
+                    <option value="galeri" {{ old('type', $informasi->type) == 'galeri' ? 'selected' : '' }}>Galeri</option>
+                </select>
+                @error('type')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
                 <label class="form-label">Tanggal Kegiatan<span class="text-danger">*</span></label>
                 <input type="date" name="tanggal"
                        class="form-control @error('tanggal') is-invalid @enderror"
@@ -45,11 +57,12 @@
 
             <div class="mb-3">
                 <label>Foto (opsional)</label><br>
-                @if($informasi->foto)
-                    <img src="{{ asset('img/' . $informasi->foto) }}" alt="Foto informasi" width="120" class="mb-2"><br>
+                @if($informasi->gambar)
+                    <img src="{{ asset('img/' . $informasi->gambar) }}" alt="Foto informasi" width="120" class="mb-2"><br>
                 @endif
-                <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror">
-                @error('foto')
+                <input type="file" name="gambar" class="form-control @error('gambar') is-invalid @enderror">
+                <small class="form-text text-muted">Format file: jpeg, png, jpg, gif. Maksimal ukuran 2 MB.</small>
+                @error('gambar')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

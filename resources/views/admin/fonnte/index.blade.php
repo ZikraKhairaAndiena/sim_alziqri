@@ -65,9 +65,31 @@
                             </table>
                         </div>
 
-                    {{-- Pagination --}}
-                    <div class="d-flex justify-content-center">
-                        {{ $logs->links() }}
+                    <div class="d-flex justify-content-center mt-4">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <!-- Tombol Previous -->
+                                <li class="page-item {{ $logs->onFirstPage() ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $logs->previousPageUrl() }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+
+                                <!-- Loop untuk nomor halaman -->
+                                @for ($i = 1; $i <= $logs->lastPage(); $i++)
+                                    <li class="page-item {{ ($logs->currentPage() == $i) ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $logs->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                @endfor
+
+                                <!-- Tombol Next -->
+                                <li class="page-item {{ $logs->hasMorePages() ? '' : 'disabled' }}">
+                                    <a class="page-link" href="{{ $logs->nextPageUrl() }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>

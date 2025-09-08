@@ -25,22 +25,39 @@ class TabunganController extends Controller
             if (!$siswa) {
                 return back()->with('error', 'Data siswa tidak ditemukan');
             }
-            $tabungans = Tabungan::where('siswa_id', $siswa->id)->orderByDesc('tanggal')->get();
+            $tabungans = Tabungan::where('siswa_id', $siswa->id)->orderByDesc('tanggal')->orderByDesc('id')->get();
             return view('admin.tabungan.ortu', compact('tabungans', 'siswa'));
         }
 
+        $search = request('search');
+
         $siswaList = Siswa::whereHas('ppdb', function ($query) {
-            $query->where('status', 'Diterima');
-        })
-        ->with('tabungans')
+                $query->where('status', 'Diterima');
+            })
+            ->when($search, function ($query, $search) {
+                $query->where('nama_siswa', 'like', "%{$search}%");
+            })
+        // ->with('tabungans')
+        // ->orderByDesc('id')
+        // ->get()
+        // ->map(function ($siswa) {
+        //     $saldo = $siswa->tabungans->last()?->saldo ?? 0;
+        //     return [
+        //         'id' => $siswa->id,
+        //         'nama_siswa' => $siswa->nama_siswa,
+        //         'saldo' => $saldo
+        //     ];
+        // });
+
+        // return view('admin.tabungan.index', compact('siswaList'));
+        ->with(['tabungans' => fn($q) => $q->latest()])
         ->orderByDesc('id')
-        ->get()
-        ->map(function ($siswa) {
-            $saldo = $siswa->tabungans->last()?->saldo ?? 0;
+        ->paginate(10)
+        ->through(function ($siswa) {
             return [
-                'id' => $siswa->id,
+                'id'         => $siswa->id,
                 'nama_siswa' => $siswa->nama_siswa,
-                'saldo' => $saldo
+                'saldo'      => $siswa->tabungans->first()?->saldo ?? 0,
             ];
         });
 

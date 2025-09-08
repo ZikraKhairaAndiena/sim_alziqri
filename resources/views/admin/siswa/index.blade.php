@@ -10,6 +10,13 @@
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
                     <div class="table-responsive">
+                        <div class="d-flex justify-content-end mb-3">
+                            <form method="GET" action="{{ route('admin.siswa.index') }}" class="mb-3 d-flex justify-content-end">
+                                <input type="text" name="search" value="{{ request('search') }}"
+                                    class="form-control me-2" placeholder="Cari nama siswa...">
+                                <button type="submit" class="btn btn-primary">Cari</button>
+                            </form>
+                        </div>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -29,7 +36,7 @@
                                     <td>{{ $siswa->nama_siswa }}</td>
                                     <td>
                                         @if($siswa->foto)
-                                            <img src="{{ asset('img/' . $siswa->foto) }}" alt="Foto {{ $siswa->nama_siswa }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                            <img src="{{ asset('img/' . $siswa->foto) }}" alt="Foto {{ $siswa->nama_siswa }}" width="50" height="50" class="rounded">
                                         @else
                                             <span class="text-muted">Tidak ada</span>
                                         @endif
@@ -58,6 +65,32 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-center mt-4">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <!-- Tombol Previous -->
+                                    <li class="page-item {{ $siswas->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $siswas->previousPageUrl() }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Loop untuk nomor halaman -->
+                                    @for ($i = 1; $i <= $siswas->lastPage(); $i++)
+                                        <li class="page-item {{ ($siswas->currentPage() == $i) ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $siswas->url($i) }}">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+
+                                    <!-- Tombol Next -->
+                                    <li class="page-item {{ $siswas->hasMorePages() ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $siswas->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>

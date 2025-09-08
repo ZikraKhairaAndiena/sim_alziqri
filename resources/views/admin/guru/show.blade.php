@@ -35,6 +35,10 @@
                                     <td>{{ $guru->nama_guru }}</td>
                                 </tr>
                                 <tr>
+                                    <th>Jabatan</th>
+                                    <td>{{ $guru->jabatan }}</td>
+                                </tr>
+                                <tr>
                                     <th>NIP</th>
                                     <td>{{ $guru->nip }}</td>
                                 </tr>

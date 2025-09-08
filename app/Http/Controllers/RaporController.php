@@ -20,7 +20,7 @@ class RaporController extends Controller
     {
         $rapors = Rapor::with(['siswa' => fn($q) => $q->whereHas('ppdb', fn($qq) => $qq->where('status','Diterima')), 'thnAjaran'])
             ->latest()
-            ->get();
+            ->paginate(10);
         return view('admin.rapor.index', compact('rapors'));
     }
 
@@ -45,14 +45,14 @@ class RaporController extends Controller
             'siswa_id' => 'required|exists:siswas,id',
             'thn_ajaran_id' => 'required|exists:thn_ajarans,id',
             'semester' => 'required|in:1,2',
-            'agama' => 'nullable|string',
-            'foto_agama' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'jati_diri' => 'nullable|string',
-            'foto_jati_diri' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'literasi' => 'nullable|string',
-            'foto_literasi' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'steam' => 'nullable|string',
-            'foto_steam' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'agama' => 'required|string',
+            'foto_agama' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'jati_diri' => 'required|string',
+            'foto_jati_diri' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'literasi' => 'required|string',
+            'foto_literasi' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'steam' => 'required|string',
+            'foto_steam' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $rapor = new Rapor($request->except(['foto_agama', 'foto_jati_diri', 'foto_literasi', 'foto_steam']));
@@ -95,7 +95,7 @@ class RaporController extends Controller
     {
         $rapor = Rapor::findOrFail($id);
         $siswas = Siswa::all();
-        $thnAjarans = ThnAjaran::all();
+        $thnAjarans = ThnAjaran::where('status', 'aktif')->first();
 
         return view('admin.rapor.edit', compact('rapor', 'siswas', 'thnAjarans'));
     }
@@ -111,13 +111,13 @@ class RaporController extends Controller
             'siswa_id' => 'required|exists:siswas,id',
             'thn_ajaran_id' => 'required|exists:thn_ajarans,id',
             'semester' => 'required|in:1,2',
-            'agama' => 'nullable|string',
+            'agama' => 'required|string',
             'foto_agama' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'jati_diri' => 'nullable|string',
+            'jati_diri' => 'required|string',
             'foto_jati_diri' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'literasi' => 'nullable|string',
+            'literasi' => 'required|string',
             'foto_literasi' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'steam' => 'nullable|string',
+            'steam' => 'required|string',
             'foto_steam' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
@@ -164,8 +164,14 @@ class RaporController extends Controller
     {
         $rapor = Rapor::with(['siswa.kelas', 'thnAjaran'])->findOrFail($id);
 
+        $kepsek = Guru::where('jabatan', 'kepala_sekolah')->first();
+
+        $guruKelas = $rapor->siswa->kelas->guru ?? null;
+
         $pdf = Pdf::loadView('admin.rapor.cetak', [
-            'rapor' => $rapor
+            'rapor' => $rapor,
+            'kepsek' => $kepsek,
+            'guruKelas' => $guruKelas,
         ])->setPaper('A4', 'portrait');
 
         return $pdf->stream('Rapor-'.$rapor->siswa->nama_siswa.'.pdf');

@@ -11,7 +11,7 @@
                         @if(session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
                         @endif
-                        <table class="table table-bordered">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -75,9 +75,32 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        {{-- Pagination --}}
-                        <div class="mt-3">
-                            {{ $informasi->links() }}
+                        <!-- Bagian Pagination untuk navigasi halaman -->
+                        <div class="d-flex justify-content-center mt-4">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <!-- Tombol Previous -->
+                                    <li class="page-item {{ $informasi->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $informasi->previousPageUrl() }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Loop untuk nomor halaman -->
+                                    @for ($i = 1; $i <= $informasi->lastPage(); $i++)
+                                        <li class="page-item {{ ($informasi->currentPage() == $i) ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $informasi->url($i) }}">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+
+                                    <!-- Tombol Next -->
+                                    <li class="page-item {{ $informasi->hasMorePages() ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $informasi->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>

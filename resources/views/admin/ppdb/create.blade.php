@@ -3,7 +3,7 @@
 <div class="content-wrapper">
     <div class="card">
         <div class="card-header">
-            <h4>Formulir Pendaftaran PPDB</h4>
+            <h4 class="fw-bold text-dark mb-0">Formulir Pendaftaran PPDB</h4>
         </div>
         <div class="card-body">
             <form action="{{ route('orang_tua.ppdb.store') }}" method="POST" enctype="multipart/form-data">
@@ -270,7 +270,7 @@
                 {{-- No Telepon --}}
                 <div class="mb-3">
                     <label class="form-label fw-semibold">No Telepon Wali<span class="text-danger">*</span></label>
-                    <small class="text-muted d-block mb-1">Gunakan format 628..., contoh: 628123456789</small>
+                    {{-- <small class="text-muted d-block mb-1">Gunakan format 628..., contoh: 628123456789</small> --}}
                     <input type="text" name="no_telp" value="{{ old('no_telp') }}"
                         class="form-control @error('no_telp') is-invalid @enderror" required>
                     @error('no_telp')
@@ -282,6 +282,7 @@
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Upload KK<span class="text-danger">*</span></label>
                     <input type="file" name="foto_kk" class="form-control @error('foto_kk') is-invalid @enderror" id="foto_kk">
+                    <small class="form-text text-muted">Format file: jpeg, png, jpg, gif. Maksimal ukuran 2 MB.</small>
                     @error('foto_kk')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -291,6 +292,7 @@
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Upload Akte Kelahiran<span class="text-danger">*</span></label>
                     <input type="file" name="foto_akte" class="form-control @error('foto_akte') is-invalid @enderror" id="foto_akte">
+                    <small class="form-text text-muted">Format file: jpeg, png, jpg, gif. Maksimal ukuran 2 MB.</small>
                     @error('foto_akte')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

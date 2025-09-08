@@ -20,16 +20,21 @@ class DashboardController extends Controller
         $totalTagihan = $totalTerbayar = $sisaTagihan = $persentaseBayar = 0;
         $namaSiswa = [];
         $kehadiran = [];
+        $tahunAjaranLabels = $siswaPerTahun = [];
 
         if ($role === 'admin') {
-            $jumlahSiswa = Siswa::count();
+            // $jumlahSiswa = Siswa::count();
+            $jumlahSiswa = Siswa::where('status', 'aktif')->count();
             $jumlahGuru  = Guru::count();
 
             $biayaTahunanPerSiswa = 720000 + 1080000 + 200000;
 
             $siswaList = Siswa::with(['pembayaran' => function($q) {
                 $q->where('status_bayar', 'paid');
-            }])->get();
+            }])->where('status', 'aktif')
+                ->orderBy('created_at', 'desc') // ambil siswa baru terdaftar
+                ->limit(10)
+                ->get();
 
             $dataPembayaran = $siswaList->map(function($siswa) use ($biayaTahunanPerSiswa) {
                 $totalBayar = $siswa->pembayaran->sum('nominal_bayar');
@@ -45,39 +50,44 @@ class DashboardController extends Controller
                 ];
             });
 
+            $ppdbData = DB::table('ppdbs')
+                ->join('thn_ajarans', 'ppdbs.thn_ajaran_id', '=', 'thn_ajarans.id')
+                ->select('thn_ajarans.nama', DB::raw('COUNT(ppdbs.id) as total_siswa'))
+                ->where('ppdbs.status', 'Diterima') // hanya yang diterima
+                ->groupBy('ppdbs.thn_ajaran_id','thn_ajarans.nama')
+                ->orderBy('thn_ajarans.nama','asc')
+                ->get();
+
+            $tahunAjaranLabels = $ppdbData->pluck('nama')->toArray();
+            $siswaPerTahun = $ppdbData->pluck('total_siswa')->toArray();
+
             return view('admin.dashboard', compact(
                 'jumlahSiswa','jumlahGuru',
-                'dataPembayaran'
+                'dataPembayaran',
+                'tahunAjaranLabels','siswaPerTahun'
             ));
         }
 
         if ($role === 'guru') {
-            $jumlahSiswa = Siswa::count();
+            // $jumlahSiswa = Siswa::count();
+            $jumlahSiswa = Siswa::where('status', 'aktif')->count();
 
-            // Diagram kehadiran (current month, top 10). Jika tabel kehadiran belum ada, fallback 0.
-            if (Schema::hasTable('kehadirans')) {
-                $start = now()->startOfMonth();
-                $end   = now()->endOfMonth();
+            // ambil data pertumbuhan siswa per tahun ajaran (sama dengan admin)
+            $ppdbData = DB::table('ppdbs')
+                ->join('thn_ajarans', 'ppdbs.thn_ajaran_id', '=', 'thn_ajarans.id')
+                ->select('thn_ajarans.nama', DB::raw('COUNT(ppdbs.id) as total_siswa'))
+                ->where('ppdbs.status', 'Diterima')
+                ->groupBy('ppdbs.thn_ajaran_id','thn_ajarans.nama')
+                ->orderBy('thn_ajarans.nama','asc')
+                ->get();
 
-                $rows = DB::table('kehadirans')
-                    ->select('siswa_id', DB::raw("SUM(CASE WHEN status='hadir' THEN 1 ELSE 0 END) as jml_hadir"))
-                    ->whereBetween('tanggal', [$start, $end])
-                    ->groupBy('siswa_id')
-                    ->orderByDesc('jml_hadir')
-                    ->limit(10)
-                    ->get();
+            $tahunAjaranLabels = $ppdbData->pluck('nama')->toArray();
+            $siswaPerTahun = $ppdbData->pluck('total_siswa')->toArray();
 
-                $namaMap = Siswa::whereIn('id', $rows->pluck('siswa_id'))->pluck('nama_siswa','id');
-                foreach ($rows as $r) {
-                    $namaSiswa[] = $namaMap[$r->siswa_id] ?? ('Siswa '.$r->siswa_id);
-                    $kehadiran[] = (int) $r->jml_hadir;
-                }
-            }
-
-            if (empty($namaSiswa)) {
-                $namaSiswa = Siswa::orderBy('nama_siswa')->limit(10)->pluck('nama_siswa')->toArray();
-                $kehadiran = array_fill(0, count($namaSiswa), 0);
-            }
+            return view('admin.dashboard', compact(
+                'jumlahSiswa',
+                'tahunAjaranLabels','siswaPerTahun'
+            ));
         }
 
         return view('admin.dashboard', compact(

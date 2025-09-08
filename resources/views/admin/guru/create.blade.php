@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">NIP<span class="text-danger">*</span></label>
+                    <label class="form-label fw-semibold">NIP<span class="text-danger">*</span></label>
                     <input type="text" name="nip" class="form-control @error('nip') is-invalid @enderror"
                            value="{{ old('nip') }}" required>
                     @error('nip')
@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Nama Lengkap<span class="text-danger">*</span></label>
+                    <label class="form-label fw-semibold">Nama Lengkap<span class="text-danger">*</span></label>
                     <input type="text" name="nama_guru" class="form-control @error('nama_guru') is-invalid @enderror"
                            value="{{ old('nama_guru') }}" required>
                     @error('nama_guru')
@@ -52,7 +52,7 @@
 
                 {{-- Jabatan --}}
                 <div class="mb-3">
-                    <label for="form-label">Jabatan<span class="text-danger">*</span></label>
+                    <label for="form-label fw-semibold">Jabatan<span class="text-danger">*</span></label>
                     <select name="jabatan" id="jabatan" class="form-select @error('jabatan') is-invalid @enderror" required>
                         <option value="">-- Pilih Jabatan --</option>
                         <option value="kepala_sekolah" {{ old('jabatan') == 'kepala_sekolah' ? 'selected' : '' }}>Kepala Sekolah</option>
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label">Jenis Kelamin<span class="text-danger">*</span></label>
+                    <label class="form-label fw-semibold">Jenis Kelamin<span class="text-danger">*</span></label>
                     <select name="jenis_kelamin" class="form-select @error('jenis_kelamin') is-invalid @enderror" required>
                         <option value="L" {{ old('jenis_kelamin') == 'L' ? 'selected' : '' }}>Laki-laki</option>
                         <option value="P" {{ old('jenis_kelamin') == 'P' ? 'selected' : '' }}>Perempuan</option>
@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Tanggal Lahir<span class="text-danger">*</span></label>
+                    <label class="form-label fw-semibold">Tanggal Lahir<span class="text-danger">*</span></label>
                     <input type="date" name="tgl_lahir" class="form-control @error('tgl_lahir') is-invalid @enderror"
                            value="{{ old('tgl_lahir') }}" required>
                     @error('tgl_lahir')
@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
+                    <label class="form-label fw-semibold">Alamat<span class="text-danger">*</span></label>
                     <textarea name="alamat" class="form-control @error('alamat') is-invalid @enderror" rows="3" required>{{ old('alamat') }}</textarea>
                     @error('alamat')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -92,8 +92,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">No. Telepon<span class="text-danger">*</span></label>
-                    <small class="text-muted d-block mb-1">Gunakan format 628..., contoh: 628123456789</small>
+                    <label class="form-label fw-semibold">No. Telepon<span class="text-danger">*</span></label>
+                    {{-- <small class="text-muted d-block mb-1">Gunakan format 628..., contoh: 628123456789</small> --}}
                     <input type="text" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" maxlength="15"
                            value="{{ old('no_telp') }}" required>
                     @error('no_telp')
@@ -102,7 +102,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Pendidikan Terakhir<span class="text-danger">*</span></label>
+                    <label class="form-label fw-semibold">Pendidikan Terakhir<span class="text-danger">*</span></label>
                     <input type="text" name="pend_terakhir" class="form-control @error('pend_terakhir') is-invalid @enderror"
                            maxlength="30" value="{{ old('pend_terakhir') }}" required>
                     @error('pend_terakhir')
@@ -111,7 +111,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Tanggal Mulai Mengajar<span class="text-danger">*</span></label>
+                    <label class="form-label fw-semibold">Tanggal Mulai Mengajar<span class="text-danger">*</span></label>
                     <input type="date" name="tgl_mulai_ngajar" class="form-control @error('tgl_mulai_ngajar') is-invalid @enderror"
                            value="{{ old('tgl_mulai_ngajar') }}" required>
                     @error('tgl_mulai_ngajar')
@@ -120,8 +120,9 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Foto</label>
+                    <label class="form-label fw-semibold">Foto</label>
                     <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror" accept="image/*">
+                    <small class="form-text text-muted">Format file: jpeg, png, jpg, gif. Maksimal ukuran 2 MB.</small>
                     @error('foto')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

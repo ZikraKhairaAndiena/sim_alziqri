@@ -77,33 +77,73 @@
                     @elseif(auth()->user()->role === 'admin')
                         <h4 class="card-title text-center fw-bold mb-4">Rincian Pembayaran Uang Sekolah</h4>
                         <div class="table-responsive">
+                            <div class="d-flex justify-content-end mb-3">
+                                <form method="GET" action="{{ route('admin.pembayaran.index') }}" class="mb-3 d-flex justify-content-center">
+                                    <input type="text" name="search" value="{{ request('search') }}"
+                                        class="form-control me-2" placeholder="Cari nama siswa...">
+                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                </form>
+                            </div>
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Siswa</th>
                                         <th>Total Bayar</th>
+                                        <th>Sisa Tagihan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php $no = 1; @endphp
-                                    @foreach($pembayarans->groupBy('siswa_id') as $siswaId => $riwayat)
+                                    {{-- @foreach($pembayarans->groupBy('siswa_id') as $siswaId => $riwayat) --}}
+                                    @foreach($siswaList as $siswa)
                                         @php
-                                            $totalBayar = $riwayat->where('status_bayar', 'paid')->sum('nominal_bayar');
+                                            //$totalBayar = $riwayat->where('status_bayar', 'paid')->sum('nominal_bayar');
+                                            $totalBayar = $siswa->pembayaran->where('status_bayar', 'paid')->sum('nominal_bayar');
+                                            $sisaTagihan = max($totalTagihan - $totalBayar, 0);
                                         @endphp
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $riwayat->first()->siswa->nama_siswa }}</td>
+                                            {{-- <td>{{ $riwayat->first()->siswa->nama_siswa }}</td> --}}
+                                            <td>{{ $siswa->nama_siswa }}</td>
                                             <td>Rp {{ number_format($totalBayar, 0, ',', '.') }}</td>
+                                            <td>Rp {{ number_format($sisaTagihan, 0, ',', '.') }}</td>
                                             <td>
-                                                <a href="{{ route('admin.pembayaran.detail', $siswaId) }}"
+                                                <a href="{{ route('admin.pembayaran.detail', $siswa->id) }}"
                                                    class="btn btn-info btn-sm me-1" title="Lihat Detail"><i class='mdi mdi-eye'></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            <!-- Bagian Pagination untuk navigasi siswa -->
+                            <div class="d-flex justify-content-center mt-4">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <!-- Tombol Previous -->
+                                        <li class="page-item {{ $siswaList->onFirstPage() ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $siswaList->previousPageUrl() }}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+
+                                        <!-- Loop untuk nomor halaman -->
+                                        @for ($i = 1; $i <= $siswaList->lastPage(); $i++)
+                                            <li class="page-item {{ ($siswaList->currentPage() == $i) ? 'active' : '' }}">
+                                                <a class="page-link" href="{{ $siswaList->url($i) }}">{{ $i }}</a>
+                                            </li>
+                                        @endfor
+
+                                        <!-- Tombol Next -->
+                                        <li class="page-item {{ $siswaList->hasMorePages() ? '' : 'disabled' }}">
+                                            <a class="page-link" href="{{ $siswaList->nextPageUrl() }}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     @endif
 

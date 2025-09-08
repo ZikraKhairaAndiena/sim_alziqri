@@ -18,7 +18,7 @@ class Kelas extends Model
         'guru_id'
     ];
 
-    public function siswa()
+    public function siswas()
     {
         return $this->hasMany(Siswa::class, 'kelas_id');
     }

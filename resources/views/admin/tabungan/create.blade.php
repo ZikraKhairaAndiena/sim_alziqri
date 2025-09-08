@@ -66,6 +66,7 @@
                     <label class="form-label">Keterangan<span class="text-danger">*</span></label>
                     <input type="text" name="ket" class="form-control @error('ket') is-invalid @enderror"
                            value="{{ old('ket') }}" required>
+                    <small class="form-text text-muted">Jika tidak ada keterangan, ketik tanda (-)</small>
                     @error('ket')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

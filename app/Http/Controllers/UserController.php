@@ -12,10 +12,22 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::latest()->paginate(10);
-        return view('admin.pengguna.index', ['users' => $users]);
+        // $users = User::latest()->paginate(10);
+        // return view('admin.pengguna.index', ['users' => $users]);
+
+         $query = User::query();
+
+        // Jika ada pencarian nama
+        if ($request->filled('search')) {
+            $query->where('nama', 'like', '%' . $request->search . '%');
+        }
+
+        $users = $query->latest()->paginate(10);
+
+        return view('admin.pengguna.index', compact('users'))
+            ->with('search', $request->search);
     }
 
     /**

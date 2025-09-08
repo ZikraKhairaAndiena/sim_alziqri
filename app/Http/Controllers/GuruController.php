@@ -15,7 +15,7 @@ class GuruController extends Controller
      */
     public function index()
     {
-        $gurus = Guru::latest()->paginate(7);
+        $gurus = Guru::latest()->paginate(10);
         return view('admin.guru.index', compact('gurus'));
     }
 
@@ -41,7 +41,7 @@ class GuruController extends Controller
             'tgl_lahir' => 'required|date',
             'alamat' => 'required|string',
             'no_telp' => 'required|string|max:15',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'pend_terakhir' => 'required|string|max:30',
             'tgl_mulai_ngajar' => 'required|date',
             'jabatan' => 'required|in:kepala_sekolah,guru_kelas',

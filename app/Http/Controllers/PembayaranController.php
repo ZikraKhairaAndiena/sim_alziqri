@@ -23,7 +23,7 @@ class PembayaranController extends Controller
         Config::$is3ds = true;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
@@ -36,8 +36,33 @@ class PembayaranController extends Controller
             return view('admin.pembayaran.index', compact('pembayarans', 'siswa'));
         }
 
-        $pembayarans = Pembayaran::with('siswa')->orderBy('created_at', 'desc')->get();
-        return view('admin.pembayaran.index', compact('pembayarans'));
+        // // $pembayarans = Pembayaran::with('siswa')->orderBy('created_at', 'desc')->get();
+        // $siswaList = Siswa::with('pembayaran', 'ppdb')
+        //     ->whereHas('ppdb', function ($query) {
+        //         $query->where('status', 'Diterima');
+        //     })
+        //     ->orderBy('created_at', 'desc')
+        //     ->paginate(10);
+        // $totalTagihan = 2000000;
+        // // return view('admin.pembayaran.index', compact('pembayarans'));
+        // return view('admin.pembayaran.index', compact('siswaList', 'totalTagihan'));
+
+        $query = Siswa::with('pembayaran', 'ppdb')
+            ->whereHas('ppdb', function ($q) {
+                $q->where('status', 'Diterima');
+            });
+
+        //  Filter search berdasarkan nama_siswa
+        if ($request->has('search') && $request->search != '') {
+            $query->where('nama_siswa', 'like', '%' . $request->search . '%');
+        }
+
+        $siswaList = $query->orderBy('created_at', 'desc')->paginate(10);
+
+        $totalTagihan = 2000000;
+
+        return view('admin.pembayaran.index', compact('siswaList', 'totalTagihan'))
+            ->with('search', $request->search);
     }
 
     public function create()

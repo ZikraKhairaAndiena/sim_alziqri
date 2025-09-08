@@ -64,23 +64,23 @@
                                     <td>{{ $siswa->no_nik }}</td>
                                 </tr>
                                 <tr>
-                                    <th>No KK</th>
+                                    <th>No Kartu Keluarga</th>
                                     <td>{{ $siswa->no_kk }}</td>
                                 </tr>
                                 <tr>
-                                    <th>No Akte</th>
+                                    <th>No Akte Kelahiran</th>
                                     <td>{{ $siswa->no_akte }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Nama Orang Tua</th>
+                                    <th>Nama Orang Tua / Wali</th>
                                     <td>{{ $siswa->nama_wali }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Telepon</th>
+                                    <th>No Telepon Orang Tua / Wali</th>
                                     <td>{{ $siswa->no_telp }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Gambar KK</th>
+                                    <th>Gambar Kartu KeluargaK</th>
                                     <td>
                                         @if($siswa->foto_kk)
                                             <img src="{{ asset('img/' . $siswa->foto_kk) }}"
@@ -92,7 +92,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Gambar Akte</th>
+                                    <th>Gambar Akte Kelahiran</th>
                                     <td>
                                         @if($siswa->foto_akte)
                                             <img src="{{ asset('img/' . $siswa->foto_akte) }}"

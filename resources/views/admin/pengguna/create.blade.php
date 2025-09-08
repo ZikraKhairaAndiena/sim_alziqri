@@ -53,6 +53,7 @@
                 <label for="password" class="form-label fw-semibold">Password<span class="text-danger">*</span></label>
                 <input type="password" class="form-control @error('password') is-invalid @enderror"
                        id="password" name="password" placeholder="Masukkan Password" required>
+                <small class="form-text text-muted">Password minimal 5 karakter</small>
                 @error('password')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

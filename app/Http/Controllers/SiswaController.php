@@ -11,13 +11,30 @@ class SiswaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-         $siswas = Siswa::whereHas('ppdb', function ($query) {
-            $query->where('status', 'Diterima');
-        })->with('ppdb')->orderBy('id', 'desc')->get();
+        //  $siswas = Siswa::whereHas('ppdb', function ($query) {
+        //     $query->where('status', 'Diterima');
+        // })->with('ppdb');
 
-        return view('admin.siswa.index', compact('siswas'));
+        // return view('admin.siswa.index', compact('siswas'));
+        $query = Siswa::whereHas('ppdb', function ($q) {
+            $q->where('status', 'Diterima');
+            })->with('ppdb');
+
+        // 🔎 Jika ada pencarian
+        if ($request->filled('search')) {
+            $query->where('nama_siswa', 'like', '%' . $request->search . '%');
+        }
+
+        $siswas = $query->join('ppdbs', 'ppdbs.siswa_id', '=', 'siswas.id')
+                ->where('ppdbs.status', 'Diterima')
+                ->orderBy('ppdbs.created_at', 'desc')
+                ->select('siswas.*')
+                ->paginate(10);
+
+        return view('admin.siswa.index', compact('siswas'))
+            ->with('search', $request->search);
     }
 
     /**
@@ -88,9 +105,9 @@ class SiswaController extends Controller
             'jmlh_saudara_kandung' => 'required|integer',
             'alamat' => 'required',
             'tmp_tinggal' => 'required|in:orang_tua,wali,nenek,saudara',
-            'no_nik' => 'required|digits:16',
+            'no_nik' => 'required|digits:16|unique:siswas,no_nik,' . $id,
             'no_kk' => 'required|digits:16',
-            'no_akte' => 'required|string|max:25',
+            'no_akte' => 'required|string|max:25|unique:siswas,no_akte,' . $id,
             'nama_wali' => 'required|string|max:100',
             'no_telp' => 'required|string|max:15',
             'status' => 'required|in:aktif,tidak_aktif',

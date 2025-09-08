@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminPpdbController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FonnteController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\KelasController;
@@ -30,7 +31,8 @@ use Illuminate\Support\Facades\Route;
 
 // Route untuk halaman home
 // Route::get('/home', function () {return view('umum.home');})->name('umum.home');
-Route::view('/', 'umum.home')->name('umum.home');
+// Route::view('/', 'umum.home')->name('umum.home');
+Route::get('/', [HomeController::class, 'index'])->name('umum.home');
 
 // Route untuk halaman profil
 Route::get('/profil', function () {return view('umum.profil');})->name('umum.profil');
@@ -98,6 +100,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin/ppdb') ->name('admin.pp
     Route::get('/', [AdminPpdbController::class, 'index'])->name('admin');
     Route::get('/{id}', [AdminPpdbController::class, 'show'])->name('show');
     Route::post('/{id}/verifikasi', [AdminPpdbController::class, 'verifikasi'])->name('verifikasi');
+    Route::get('/{id}/cetak', [PpdbController::class, 'cetak'])->name('cetak');
+
 });
 
 // Route untuk halaman siswa

@@ -20,7 +20,7 @@
 
                 {{-- Pilih Siswa --}}
                 <div class="mb-3">
-                    <label for="siswa_id" class="form-label">Siswa<span class="text-danger">*</span></label>
+                    <label for="siswa_id" class="form-label fw-semibold">Siswa<span class="text-danger">*</span></label>
                     <select name="siswa_id" id="siswa_id"
                             class="form-select @error('siswa_id') is-invalid @enderror" required>
                         <option value="">-- Pilih Siswa --</option>
@@ -62,7 +62,7 @@
 
                 {{-- Semester --}}
                 <div class="mb-3">
-                    <label for="semester" class="form-label">Semester<span class="text-danger">*</span></label>
+                    <label for="semester" class="form-label fw-semibold">Semester<span class="text-danger">*</span></label>
                     <select name="semester" id="semester"
                             class="form-select @error('semester') is-invalid @enderror" required>
                         <option value="">-- Pilih Semester --</option>
@@ -79,7 +79,7 @@
 
                 {{-- Agama --}}
                 <div class="mb-3">
-                    <label for="agama" class="form-label">Agama<span class="text-danger">*</span></label>
+                    <label for="agama" class="form-label fw-semibold">Agama<span class="text-danger">*</span></label>
                     <textarea name="agama" id="agama" rows="6"
                               class="form-control @error('agama') is-invalid @enderror">{{ old('agama') }}</textarea>
                     @error('agama')
@@ -87,7 +87,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="foto_agama" class="form-label">Foto Agama<span class="text-danger">*</span></label>
+                    <label for="foto_agama" class="form-label fw-semibold">Foto Kegiatan Agama Siswa<span class="text-danger">*</span></label>
                     <input type="file" name="foto_agama" id="foto_agama"
                            class="form-control @error('foto_agama') is-invalid @enderror" accept="image/*">
                     @error('foto_agama')
@@ -97,7 +97,7 @@
 
                 {{-- Jati Diri --}}
                 <div class="mb-3">
-                    <label for="jati_diri" class="form-label">Jati Diri<span class="text-danger">*</span></label>
+                    <label for="jati_diri" class="form-label fw-semibold">Jati Diri<span class="text-danger">*</span></label>
                     <textarea name="jati_diri" id="jati_diri" rows="6"
                               class="form-control @error('jati_diri') is-invalid @enderror">{{ old('jati_diri') }}</textarea>
                     @error('jati_diri')
@@ -105,7 +105,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="foto_jati_diri" class="form-label">Foto Jati Diri<span class="text-danger">*</span></label>
+                    <label for="foto_jati_diri" class="form-label fw-semibold">Foto Kegiatan Jati Diri Siswa<span class="text-danger">*</span></label>
                     <input type="file" name="foto_jati_diri" id="foto_jati_diri"
                            class="form-control @error('foto_jati_diri') is-invalid @enderror" accept="image/*">
                     @error('foto_jati_diri')
@@ -115,7 +115,7 @@
 
                 {{-- Literasi --}}
                 <div class="mb-3">
-                    <label for="literasi" class="form-label">Literasi<span class="text-danger">*</span></label>
+                    <label for="literasi" class="form-label fw-semibold">Literasi<span class="text-danger">*</span></label>
                     <textarea name="literasi" id="literasi" rows="6"
                               class="form-control @error('literasi') is-invalid @enderror">{{ old('literasi') }}</textarea>
                     @error('literasi')
@@ -123,7 +123,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="foto_literasi" class="form-label">Foto Literasi<span class="text-danger">*</span></label>
+                    <label for="foto_literasi" class="form-label fw-semibold">Foto Kegiatan Literasi Siswa<span class="text-danger">*</span></label>
                     <input type="file" name="foto_literasi" id="foto_literasi"
                            class="form-control @error('foto_literasi') is-invalid @enderror" accept="image/*">
                     @error('foto_literasi')
@@ -133,7 +133,7 @@
 
                 {{-- STEAM --}}
                 <div class="mb-3">
-                    <label for="steam" class="form-label">STEAM<span class="text-danger">*</span></label>
+                    <label for="steam" class="form-label fw-semibold">STEAM<span class="text-danger">*</span></label>
                     <textarea name="steam" id="steam" rows="6"
                               class="form-control @error('steam') is-invalid @enderror">{{ old('steam') }}</textarea>
                     @error('steam')
@@ -141,7 +141,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="foto_steam" class="form-label">Foto STEAM<span class="text-danger">*</span></label>
+                    <label for="foto_steam" class="form-label fw-semibold">Foto Kegiatan STEAM Siswa<span class="text-danger">*</span></label>
                     <input type="file" name="foto_steam" id="foto_steam"
                            class="form-control @error('foto_steam') is-invalid @enderror" accept="image/*">
                     @error('foto_steam')

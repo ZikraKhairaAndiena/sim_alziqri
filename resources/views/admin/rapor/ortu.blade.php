@@ -7,10 +7,10 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="mb-4 text-center">Rapor Anak: {{ $siswa->nama_siswa }}</h4>
+                    <h4 class="fw-bold text-dark mb-0">Rapor Anak: {{ $siswa->nama_siswa }}</h4>
 
                     <div class="table-responsive">
-                        <table class="table table-bordered text-center">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>Semester</th>

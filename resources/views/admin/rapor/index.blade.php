@@ -57,6 +57,33 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        <!-- Bagian Pagination untuk navigasi halaman rapor -->
+                        <div class="d-flex justify-content-center mt-4">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <!-- Tombol Previous -->
+                                    <li class="page-item {{ $rapors->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $rapors->previousPageUrl() }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Loop untuk nomor halaman -->
+                                    @for ($i = 1; $i <= $rapors->lastPage(); $i++)
+                                        <li class="page-item {{ ($rapors->currentPage() == $i) ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $rapors->url($i) }}">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+
+                                    <!-- Tombol Next -->
+                                    <li class="page-item {{ $rapors->hasMorePages() ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $rapors->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>

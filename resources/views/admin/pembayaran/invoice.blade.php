@@ -24,7 +24,7 @@
             <small>Tanggal: {{ date('d/m/Y', strtotime($pembayaran->created_at)) }}</small>
         </td>
         <td style="text-align: right; border: none;">
-            <strong>ID Invoice:</strong> INV-{{ str_pad($pembayaran->id, 5, '0', STR_PAD_LEFT) }}<br>
+            <strong>ID Invoice:</strong> {{ $pembayaran->order_id }}<br>
             <span style="text-transform: uppercase;">{{ $pembayaran->status_bayar }}</span>
         </td>
     </tr>
