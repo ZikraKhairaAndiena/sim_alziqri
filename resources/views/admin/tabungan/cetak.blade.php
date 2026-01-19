@@ -18,9 +18,9 @@
     <tbody>
         @forelse($tabungans as $i => $tabungan)
             <tr>
-                <td>{{ $i+1 }}</td>
+                <td>{{ $i + 1 }}</td>
                 <td>{{ date('d/m/Y', strtotime($tabungan->tanggal)) }}</td>
-                <td>Rp {{ number_format($tabungan->jumlah,0,',','.') }}</td>
+                <td>Rp {{ number_format($tabungan->jumlah, 0, ',', '.') }}</td>
                 <td>{{ $tabungan->ket }}</td>
             </tr>
         @empty
@@ -30,13 +30,14 @@
         @endforelse
     </tbody>
 
-    @if($tabungans->count() > 0)
-    <tfoot>
-        <tr>
-            <td colspan="2" style="text-align:center;"><strong>Total</strong></td>
-            <td colspan="2"><strong>Rp {{ number_format($tabungans->sum('jumlah'),0,',','.') }}</strong></td>
-        </tr>
-    </tfoot>
+    @if ($tabungans->count() > 0)
+        <tfoot>
+            <tr>
+                <td colspan="2" style="text-align:center;"><strong>Total</strong></td>
+                <td colspan="2" style="text-align:center;"><strong>Rp
+                        {{ number_format($tabungans->sum('jumlah'), 0, ',', '.') }}</strong></td>
+            </tr>
+        </tfoot>
     @endif
 </table>
 

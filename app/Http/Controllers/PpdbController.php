@@ -20,8 +20,8 @@ class PpdbController extends Controller
     public function index()
     {
         $ppdbs = Ppdb::with('siswa', 'thn_ajaran')
-                    ->where('user_id', Auth::id())
-                    ->first();
+            ->where('user_id', Auth::id())
+            ->first();
 
         return view('admin.ppdb.index', compact('ppdbs'));
     }
@@ -123,7 +123,6 @@ class PpdbController extends Controller
         $pdf = Pdf::loadView('admin.ppdb.cetak', compact('ppdb', 'kepsek'))
             ->setPaper('A4', 'portrait');
 
-        return $pdf->stream('Bukti_Pendaftaran_'.$ppdb->siswa->nama_siswa.'.pdf');
+        return $pdf->stream('Bukti_Pendaftaran_' . $ppdb->siswa->nama_siswa . '.pdf');
     }
-
 }

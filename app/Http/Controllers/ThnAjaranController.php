@@ -95,12 +95,12 @@ class ThnAjaranController extends Controller
             // Set semua tahun ajaran lain jadi tidak_aktif
             ThnAjaran::where('status', 'aktif')->where('id', '!=', $id)->update(['status' => 'tidak_aktif']);
 
-            Siswa::whereHas('ppdb', function($q) use ($id){
+            Siswa::whereHas('ppdb', function ($q) use ($id) {
                 $q->where('thn_ajaran_id', $id)->where('status', 'Diterima');
             })->update(['status' => 'aktif']);
         } else {
             // Nonaktifkan semua siswa di tahun ajaran ini
-            Siswa::whereHas('ppdb', function($q) use ($id){
+            Siswa::whereHas('ppdb', function ($q) use ($id) {
                 $q->where('thn_ajaran_id', $id);
             })->update(['status' => 'tidak_aktif']);
         }

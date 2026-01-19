@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>@yield('title','Al-Ziqri')</title>
+    <title>@yield('title', 'Al-Ziqri')</title>
 
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('vendor/mdi/css/materialdesignicons.min.css') }}">
@@ -25,18 +26,19 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
+
 <body>
 
     <div class="container-scroller">
         @include('admin.layouts.header')
 
         <div class="container-fluid page-body-wrapper">
-        @include('admin.layouts.sidebar')
+            @include('admin.layouts.sidebar')
 
-        <div class="main-panel">
-            @yield('content')
-            @include('admin.layouts.footer')
-        </div>
+            <div class="main-panel">
+                @yield('content')
+                @include('admin.layouts.footer')
+            </div>
         </div>
     </div>
 
@@ -59,10 +61,10 @@
     <!-- End custom js for this page -->
 
     <!-- SweetAlert2 -->
-{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    @if(session('success'))
+    @if (session('success'))
         Swal.fire({
             icon: 'success',
             title: 'Sukses!',
@@ -72,7 +74,7 @@
         });
     @endif
 
-    @if(session('error'))
+    @if (session('error'))
         Swal.fire({
             icon: 'error',
             title: 'Gagal!',
@@ -84,6 +86,7 @@
 </script> --}}
 
 
-@stack('scripts')
+    @stack('scripts')
 </body>
+
 </html>

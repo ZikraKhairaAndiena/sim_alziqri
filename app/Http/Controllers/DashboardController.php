@@ -29,14 +29,14 @@ class DashboardController extends Controller
 
             $biayaTahunanPerSiswa = 720000 + 1080000 + 200000;
 
-            $siswaList = Siswa::with(['pembayaran' => function($q) {
+            $siswaList = Siswa::with(['pembayaran' => function ($q) {
                 $q->where('status_bayar', 'paid');
             }])->where('status', 'aktif')
                 ->orderBy('created_at', 'desc') // ambil siswa baru terdaftar
                 ->limit(10)
                 ->get();
 
-            $dataPembayaran = $siswaList->map(function($siswa) use ($biayaTahunanPerSiswa) {
+            $dataPembayaran = $siswaList->map(function ($siswa) use ($biayaTahunanPerSiswa) {
                 $totalBayar = $siswa->pembayaran->sum('nominal_bayar');
                 $sisaTagihan = max($biayaTahunanPerSiswa - $totalBayar, 0);
                 $persentase = $biayaTahunanPerSiswa > 0
@@ -54,17 +54,19 @@ class DashboardController extends Controller
                 ->join('thn_ajarans', 'ppdbs.thn_ajaran_id', '=', 'thn_ajarans.id')
                 ->select('thn_ajarans.nama', DB::raw('COUNT(ppdbs.id) as total_siswa'))
                 ->where('ppdbs.status', 'Diterima') // hanya yang diterima
-                ->groupBy('ppdbs.thn_ajaran_id','thn_ajarans.nama')
-                ->orderBy('thn_ajarans.nama','asc')
+                ->groupBy('ppdbs.thn_ajaran_id', 'thn_ajarans.nama')
+                ->orderBy('thn_ajarans.nama', 'asc')
                 ->get();
 
             $tahunAjaranLabels = $ppdbData->pluck('nama')->toArray();
             $siswaPerTahun = $ppdbData->pluck('total_siswa')->toArray();
 
             return view('admin.dashboard', compact(
-                'jumlahSiswa','jumlahGuru',
+                'jumlahSiswa',
+                'jumlahGuru',
                 'dataPembayaran',
-                'tahunAjaranLabels','siswaPerTahun'
+                'tahunAjaranLabels',
+                'siswaPerTahun'
             ));
         }
 
@@ -77,8 +79,8 @@ class DashboardController extends Controller
                 ->join('thn_ajarans', 'ppdbs.thn_ajaran_id', '=', 'thn_ajarans.id')
                 ->select('thn_ajarans.nama', DB::raw('COUNT(ppdbs.id) as total_siswa'))
                 ->where('ppdbs.status', 'Diterima')
-                ->groupBy('ppdbs.thn_ajaran_id','thn_ajarans.nama')
-                ->orderBy('thn_ajarans.nama','asc')
+                ->groupBy('ppdbs.thn_ajaran_id', 'thn_ajarans.nama')
+                ->orderBy('thn_ajarans.nama', 'asc')
                 ->get();
 
             $tahunAjaranLabels = $ppdbData->pluck('nama')->toArray();
@@ -86,14 +88,20 @@ class DashboardController extends Controller
 
             return view('admin.dashboard', compact(
                 'jumlahSiswa',
-                'tahunAjaranLabels','siswaPerTahun'
+                'tahunAjaranLabels',
+                'siswaPerTahun'
             ));
         }
 
         return view('admin.dashboard', compact(
-            'jumlahSiswa','jumlahGuru',
-            'totalTagihan','totalTerbayar','sisaTagihan','persentaseBayar',
-            'namaSiswa','kehadiran'
+            'jumlahSiswa',
+            'jumlahGuru',
+            'totalTagihan',
+            'totalTerbayar',
+            'sisaTagihan',
+            'persentaseBayar',
+            'namaSiswa',
+            'kehadiran'
         ));
     }
 }

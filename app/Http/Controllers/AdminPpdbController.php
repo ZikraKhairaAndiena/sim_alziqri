@@ -19,7 +19,7 @@ class AdminPpdbController extends Controller
 
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->whereHas('siswa', function($q) use ($search) {
+            $query->whereHas('siswa', function ($q) use ($search) {
                 $q->where('nama_siswa', 'like', "%{$search}%");
             });
         }
@@ -72,10 +72,10 @@ class AdminPpdbController extends Controller
             // Buat pesan WA sesuai status
             if ($request->status === 'Diterima') {
                 $pesan = "Pendaftaran TK AL-Ziqri atas nama {$siswa->nama_siswa} sudah *DITERIMA*.\n\n"
-                    . "Silakan lakukan pembayaran di menu Pembayaran melalui akun masing-masing.";
+                    . "Silahkan lakukan pembayaran di menu Pembayaran melalui akun masing-masing.";
             } else {
                 $pesan = "Mohon maaf, pendaftaran TK Al-Ziqri atas nama {$siswa->nama_siswa} *DITOLAK*.\n\n"
-                    . "Untuk informasi lebih lanjut silakan hubungi pihak sekolah.";
+                    . "Untuk informasi lebih lanjut silahkan hubungi pihak sekolah.";
             }
 
             // Kirim pesan WA via Fonnte
@@ -105,7 +105,7 @@ class AdminPpdbController extends Controller
 
         //         // Buat pesan WA
         //         $pesan = "Pendaftaran sekolah atas nama {$siswa->nama_siswa} sudah *DITERIMA*.\n\n"
-        //             . "Silakan lakukan pembayaran di menu Pembayaran melalui akun masing-masing.";
+        //             . "Silahkan lakukan pembayaran di menu Pembayaran melalui akun masing-masing.";
 
         //         // Kirim pesan WA via Fonnte
         //         $result = FonnteHelper::kirimPesan($nomor, $pesan);
@@ -121,5 +121,4 @@ class AdminPpdbController extends Controller
 
         return redirect()->route('admin.ppdb.admin')->with('success', 'Status pendaftaran berhasil diperbarui.');
     }
-
 }

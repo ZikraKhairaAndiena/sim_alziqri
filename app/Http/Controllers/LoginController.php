@@ -21,7 +21,7 @@ class LoginController extends Controller
      */
     public function authenticate(Request $request)
     {
-         // Validasi input
+        // Validasi input
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required']

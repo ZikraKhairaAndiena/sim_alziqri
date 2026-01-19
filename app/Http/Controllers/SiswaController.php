@@ -20,7 +20,7 @@ class SiswaController extends Controller
         // return view('admin.siswa.index', compact('siswas'));
         $query = Siswa::whereHas('ppdb', function ($q) {
             $q->where('status', 'Diterima');
-            })->with('ppdb');
+        })->with('ppdb');
 
         // 🔎 Jika ada pencarian
         if ($request->filled('search')) {
@@ -28,10 +28,10 @@ class SiswaController extends Controller
         }
 
         $siswas = $query->join('ppdbs', 'ppdbs.siswa_id', '=', 'siswas.id')
-                ->where('ppdbs.status', 'Diterima')
-                ->orderBy('ppdbs.created_at', 'desc')
-                ->select('siswas.*')
-                ->paginate(10);
+            ->where('ppdbs.status', 'Diterima')
+            ->orderBy('ppdbs.created_at', 'desc')
+            ->select('siswas.*')
+            ->paginate(10);
 
         return view('admin.siswa.index', compact('siswas'))
             ->with('search', $request->search);

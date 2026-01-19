@@ -23,4 +23,3 @@ class CheckPpdbStatus
         return $next($request);
     }
 }
-

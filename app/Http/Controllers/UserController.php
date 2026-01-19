@@ -17,7 +17,7 @@ class UserController extends Controller
         // $users = User::latest()->paginate(10);
         // return view('admin.pengguna.index', ['users' => $users]);
 
-         $query = User::query();
+        $query = User::query();
 
         // Jika ada pencarian nama
         if ($request->filled('search')) {

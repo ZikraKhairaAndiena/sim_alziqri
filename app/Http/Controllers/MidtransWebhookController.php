@@ -22,11 +22,12 @@ class MidtransWebhookController extends Controller
         $signatureKey = $data['signature_key'] ?? '';
 
         // Validasi signature
-        $hashed = hash('sha512',
+        $hashed = hash(
+            'sha512',
             $data['order_id'] .
-            $data['status_code'] .
-            $data['gross_amount'] .
-            $serverKey
+                $data['status_code'] .
+                $data['gross_amount'] .
+                $serverKey
         );
 
         if ($signatureKey !== $hashed) {

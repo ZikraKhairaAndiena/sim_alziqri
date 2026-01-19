@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> --}}
-    <title>@yield('title','Al-Ziqri')</title>
+    <title>@yield('title', 'Al-Ziqri')</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -23,46 +24,47 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 </head>
+
 <body class="d-flex flex-column h-100">
     @include('umum.layouts.header')
 
-<!-- Begin page content -->
-<main class="flex-shrink-0">
-    <div class="container">
-      @yield('content')
-    </div>
-</main>
+    <!-- Begin page content -->
+    <main class="flex-shrink-0">
+        <div class="container">
+            @yield('content')
+        </div>
+    </main>
 
-@include('umum.layouts.footer')
+    @include('umum.layouts.footer')
 
-<!-- yang baru -->
-<!-- JavaScript Libraries -->
+    <!-- yang baru -->
+    <!-- JavaScript Libraries -->
 
-<!-- Local JS Files -->
-<script src="{{ asset('js/jquery.min.js') }}"></script>
-<script src="{{ asset('js/jquery-migrate-3.0.1.min.js') }}"></script>
-<script src="{{ asset('js/popper.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
-<script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
-<script src="{{ asset('js/jquery.stellar.min.js') }}"></script>
-<script src="{{ asset('js/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
-<script src="{{ asset('js/aos.js') }}"></script>
-<script src="{{ asset('js/jquery.animateNumber.min.js') }}"></script>
-<script src="{{ asset('js/scrollax.min.js') }}"></script>
+    <!-- Local JS Files -->
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-migrate-3.0.1.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
+    <script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.stellar.min.js') }}"></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('js/aos.js') }}"></script>
+    <script src="{{ asset('js/jquery.animateNumber.min.js') }}"></script>
+    <script src="{{ asset('js/scrollax.min.js') }}"></script>
 
-<!-- Google Maps API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 
-<!-- Custom JS -->
-<script src="{{ asset('js/google-map.js') }}"></script>
-<script src="{{ asset('js/main.js') }}"></script>
+    <!-- Custom JS -->
+    <script src="{{ asset('js/google-map.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 
-{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    @if(session('success'))
+    @if (session('success'))
         Swal.fire({
             icon: 'success',
             title: 'Sukses!',
@@ -72,7 +74,7 @@
         });
     @endif
 
-    @if(session('error'))
+    @if (session('error'))
         Swal.fire({
             icon: 'error',
             title: 'Gagal!',
@@ -84,4 +86,5 @@
 </script> --}}
 
 </body>
+
 </html>

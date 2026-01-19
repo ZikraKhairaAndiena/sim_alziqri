@@ -38,14 +38,14 @@ class KehadiranController extends Controller
         // Guru/Admin
         $kelas = Kelas::orderBy('nama_kelas')->get();
 
-        $kehadirans = Kehadiran::with(['kelas', 'siswa' => function($q){
-            $q->whereHas('ppdb', fn($query) => $query->where('status','Diterima'));
+        $kehadirans = Kehadiran::with(['kelas', 'siswa' => function ($q) {
+            $q->whereHas('ppdb', fn($query) => $query->where('status', 'Diterima'));
         }])
-        ->select('kelas_id', 'tanggal', DB::raw('MIN(id) as id'))
-        ->groupBy('kelas_id', 'tanggal')
-        ->orderBy('tanggal', 'desc')
-        ->orderBy('id', 'desc')
-        ->paginate(10);
+            ->select('kelas_id', 'tanggal', DB::raw('MIN(id) as id'))
+            ->groupBy('kelas_id', 'tanggal')
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
 
         return view('admin.kehadiran.index', compact('kehadirans', 'kelas'));
     }
@@ -66,8 +66,8 @@ class KehadiranController extends Controller
 
         if ($request->filled('kelas_id')) {
             $siswas = Siswa::where('kelas_id', $request->kelas_id)
-                ->whereHas('ppdb', fn($q) => $q->where('status','Diterima'))
-                ->where('status','aktif')
+                ->whereHas('ppdb', fn($q) => $q->where('status', 'Diterima'))
+                ->where('status', 'aktif')
                 ->orderBy('nama_siswa')
                 ->get();
         }

@@ -152,9 +152,9 @@ class PembayaranController extends Controller
         $totalTagihan = 2000000; // statis
 
         $totalTerbayar = Pembayaran::where('siswa_id', $pembayaran->siswa_id)
-        ->where('status_bayar', 'paid')
-        ->where('id', '<=', $id) // hanya pembayaran sampai invoice ini
-        ->sum('nominal_bayar');
+            ->where('status_bayar', 'paid')
+            ->where('id', '<=', $id) // hanya pembayaran sampai invoice ini
+            ->sum('nominal_bayar');
 
         $sisaTagihan = max($totalTagihan - $totalTerbayar, 0);
 
@@ -175,7 +175,7 @@ class PembayaranController extends Controller
             'kepsek' => $kepsek,
         ]);
 
-        return $pdf->stream('Invoice-'.$pembayaran->id.'.pdf');
+        return $pdf->stream('Invoice-' . $pembayaran->id . '.pdf');
     }
 
     public function riwayat($siswa_id)
@@ -203,5 +203,4 @@ class PembayaranController extends Controller
             'persentaseBayar'
         ));
     }
-
 }

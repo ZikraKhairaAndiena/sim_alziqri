@@ -32,37 +32,36 @@ class TabunganController extends Controller
         $search = request('search');
 
         $siswaList = Siswa::whereHas('ppdb', function ($query) {
-                $query->where('status', 'Diterima');
-            })
+            $query->where('status', 'Diterima');
+        })
             ->when($search, function ($query, $search) {
                 $query->where('nama_siswa', 'like', "%{$search}%");
             })
-        // ->with('tabungans')
-        // ->orderByDesc('id')
-        // ->get()
-        // ->map(function ($siswa) {
-        //     $saldo = $siswa->tabungans->last()?->saldo ?? 0;
-        //     return [
-        //         'id' => $siswa->id,
-        //         'nama_siswa' => $siswa->nama_siswa,
-        //         'saldo' => $saldo
-        //     ];
-        // });
+            // ->with('tabungans')
+            // ->orderByDesc('id')
+            // ->get()
+            // ->map(function ($siswa) {
+            //     $saldo = $siswa->tabungans->last()?->saldo ?? 0;
+            //     return [
+            //         'id' => $siswa->id,
+            //         'nama_siswa' => $siswa->nama_siswa,
+            //         'saldo' => $saldo
+            //     ];
+            // });
 
-        // return view('admin.tabungan.index', compact('siswaList'));
-        ->with(['tabungans' => fn($q) => $q->latest()])
-        ->orderByDesc('id')
-        ->paginate(10)
-        ->through(function ($siswa) {
-            return [
-                'id'         => $siswa->id,
-                'nama_siswa' => $siswa->nama_siswa,
-                'saldo'      => $siswa->tabungans->first()?->saldo ?? 0,
-            ];
-        });
+            // return view('admin.tabungan.index', compact('siswaList'));
+            ->with(['tabungans' => fn($q) => $q->latest()])
+            ->orderByDesc('id')
+            ->paginate(10)
+            ->through(function ($siswa) {
+                return [
+                    'id'         => $siswa->id,
+                    'nama_siswa' => $siswa->nama_siswa,
+                    'saldo'      => $siswa->tabungans->first()?->saldo ?? 0,
+                ];
+            });
 
         return view('admin.tabungan.index', compact('siswaList'));
-
     }
 
     /**
@@ -75,9 +74,9 @@ class TabunganController extends Controller
         }
 
         $siswas = Siswa::where('status', 'aktif') // ✅ hanya yg aktif
-        ->whereHas('ppdb', fn($q) => $q->where('status','Diterima'))
-        ->orderBy('nama_siswa')
-        ->get();
+            ->whereHas('ppdb', fn($q) => $q->where('status', 'Diterima'))
+            ->orderBy('nama_siswa')
+            ->get();
         return view('admin.tabungan.create', compact('siswas'));
     }
 

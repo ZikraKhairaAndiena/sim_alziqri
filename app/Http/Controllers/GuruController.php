@@ -96,7 +96,7 @@ class GuruController extends Controller
             'alamat'          => 'required|string',
             'no_telp'         => 'required|string|max:15',
             'foto'            => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'tgl_mulai_ngajar'=> 'required|date',
+            'tgl_mulai_ngajar' => 'required|date',
             'pend_terakhir'   => 'required|string|max:30',
             'jabatan'         => 'required|in:kepala_sekolah,guru_kelas',
         ]);

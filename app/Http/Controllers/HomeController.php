@@ -18,6 +18,6 @@ class HomeController extends Controller
 
         $guru = Guru::all(); // ambil semua guru dari tabel guru
 
-        return view('umum.home', compact('informasi','guru'));
+        return view('umum.home', compact('informasi', 'guru'));
     }
 }

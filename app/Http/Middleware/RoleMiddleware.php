@@ -25,6 +25,6 @@ class RoleMiddleware
             abort(403, 'Akses ditolak. Anda tidak memiliki hak akses.');
         }
 
-        return $next($request); 
+        return $next($request);
     }
 }

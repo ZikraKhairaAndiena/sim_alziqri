@@ -1,5 +1,5 @@
 <table border="1" cellspacing="0" cellpadding="4"
-       style="border-collapse:collapse; width:100%; font-family:Calibri,Arial,sans-serif; font-size:11px; text-align:center;">
+    style="border-collapse:collapse; width:100%; font-family:Calibri,Arial,sans-serif; font-size:11px; text-align:center;">
 
     @php
         $jumlahKolom = 2 + $tanggal->count() + 4;
@@ -23,14 +23,17 @@
         @foreach ($tanggal as $t)
             <th style="width:22px;">{{ $t }}</th>
         @endforeach
-        <th>H</th><th>S</th><th>I</th><th>A</th>
+        <th>H</th>
+        <th>S</th>
+        <th>I</th>
+        <th>A</th>
     </tr>
 
     @php
         $totalH = $totalS = $totalI = $totalA = 0;
         $rekapPerTanggal = [];
         foreach ($tanggal as $t) {
-            $rekapPerTanggal[$t] = ['H'=>0,'S'=>0,'I'=>0,'A'=>0];
+            $rekapPerTanggal[$t] = ['H' => 0, 'S' => 0, 'I' => 0, 'A' => 0];
         }
     @endphp
 
@@ -45,22 +48,47 @@
 
             @foreach ($tanggal as $t)
                 @php
-                    $tgl   = sprintf('%04d-%02d-%02d', $tahun, $bulan, $t);
+                    $tgl = sprintf('%04d-%02d-%02d', $tahun, $bulan, $t);
                     $absen = optional($data->firstWhere('tanggal', $tgl))->status ?? '';
                     $absen = strtolower($absen); // biar aman
 
-                    $bg = ''; $fc = '#000000';
+                    $bg = '';
+                    $fc = '#000000';
                     switch ($absen) {
                         case 'hadir':
-                            $absen = 'H'; $bg = '#92D050'; $countH++; $totalH++; $rekapPerTanggal[$t]['H']++; break;
+                            $absen = 'H';
+                            $bg = '#92D050';
+                            $countH++;
+                            $totalH++;
+                            $rekapPerTanggal[$t]['H']++;
+                            break;
                         case 'sakit':
-                            $absen = 'S'; $bg = '#00B0F0'; $countS++; $totalS++; $rekapPerTanggal[$t]['S']++; break;
+                            $absen = 'S';
+                            $bg = '#00B0F0';
+                            $countS++;
+                            $totalS++;
+                            $rekapPerTanggal[$t]['S']++;
+                            break;
                         case 'izin':
-                            $absen = 'I'; $bg = '#FFD966'; $countI++; $totalI++; $rekapPerTanggal[$t]['I']++; break;
+                            $absen = 'I';
+                            $bg = '#FFD966';
+                            $countI++;
+                            $totalI++;
+                            $rekapPerTanggal[$t]['I']++;
+                            break;
                         case 'alpha':
-                            $absen = 'A'; $bg = '#FF0000'; $fc = '#FFFFFF'; $countA++; $totalA++; $rekapPerTanggal[$t]['A']++; break;
+                            $absen = 'A';
+                            $bg = '#FF0000';
+                            $fc = '#FFFFFF';
+                            $countA++;
+                            $totalA++;
+                            $rekapPerTanggal[$t]['A']++;
+                            break;
                         default:
-                            $absen = ''; $bg = ''; $fc = '#000000'; break;
+                            $absen = '';
+                            $bg = '';
+                            $fc = '#000000';
+                            break;
                     }
                 @endphp
                 <td style="background: {{ $bg }}; color: {{ $fc }};">{{ $absen }}</td>

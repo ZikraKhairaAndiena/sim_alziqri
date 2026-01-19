@@ -16,14 +16,14 @@ class Rapor extends Model
         'siswa_id',
         'thn_ajaran_id',
         'semester',
-        'agama',
-        'foto_agama',
-        'jati_diri',
-        'foto_jati_diri',
-        'literasi',
-        'foto_literasi',
-        'steam',
-        'foto_steam'
+        // 'agama',
+        // 'foto_agama',
+        // 'jati_diri',
+        // 'foto_jati_diri',
+        // 'literasi',
+        // 'foto_literasi',
+        // 'steam',
+        // 'foto_steam'
     ];
 
     public function siswa()
@@ -34,5 +34,10 @@ class Rapor extends Model
     public function thnAjaran()
     {
         return $this->belongsTo(ThnAjaran::class, 'thn_ajaran_id');
+    }
+
+    public function nilaiRapors()
+    {
+        return $this->hasMany(NilaiRapor::class, 'rapor_id')->with('kriteria');
     }
 }
